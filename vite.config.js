@@ -1,6 +1,5 @@
-import { URL, fileURLToPath } from 'node:url'
-
 import { defineConfig } from 'vite'
+import { URL, fileURLToPath } from 'node:url'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import AutoImport from 'unplugin-auto-import/vite'
@@ -18,6 +17,10 @@ export default defineConfig({
       resolvers: [ElementPlusResolver()],
     }),
   ],
+  server: {
+    host: "0.0.0.0",
+    port: 8848
+  },
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))

@@ -84,7 +84,7 @@ module.exports = {
         'vue/prefer-import-from-vue': 'off',
         'vue/no-v-text-v-html-on-component': 'off',
         'vue/html-self-closing': [
-            'error',
+            'warn',
             {
                 html: {
                     void: 'always',
