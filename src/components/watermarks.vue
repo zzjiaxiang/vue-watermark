@@ -1,14 +1,16 @@
 <script setup>
 import { nextTick, onMounted, ref, watch } from "vue";
 import { MutateObserver, getPixelRatio, getStyleStr, reRendering, rotateWatermark } from "./utils";
+const FontGap = 3;
+
 const props = defineProps({
   gapX: {
     type: Number,
-    default: 100
+    default: 200
   },
   gapY: {
     type: Number,
-    default: 100
+    default: 200
   },
   zIndex: {
     type: Number,
@@ -39,8 +41,8 @@ const props = defineProps({
     default: 64
   },
   content: {
-    type: String,
-    default: "ant design Ant Design Ant Design Ant Design"
+    type: [String, Array],
+    default: ""
   },
   fontColor: {
     type: String,
@@ -104,6 +106,19 @@ const appendWatermark = (base64Url, markWidth) => {
     });
   }
 };
+const fillTexts = (ctx, drawX, drawY, drawWidth, drawHeight) => {
+  const ratio = getPixelRatio();
+  const mergedFontSize = Number(props.fontSize) * ratio;
+  ctx.font = `${props.fontStyle} normal ${props.fontWeight} ${mergedFontSize}px/${drawHeight}px ${props.fontFamily}`;
+  ctx.fillStyle = props.fontColor;
+  ctx.textAlign = "center";
+  ctx.textBaseline = "top";
+  ctx.translate(drawWidth / 2, 0);
+  const contents = Array.isArray(props.content) ? props.content : [props.content];
+  contents?.forEach((item, index) => {
+    ctx.fillText(item ?? "", drawX, drawY + index * (mergedFontSize + FontGap * ratio));
+  });
+};
 const renderWatermark = () => {
   const canvas = document.createElement("canvas");
   const ctx = canvas.getContext("2d");
@@ -115,40 +130,33 @@ const renderWatermark = () => {
     const [markWidth, markHeight] = getMarkSize(ctx);
     const canvasWidth = `${(props.gapX + markWidth) * ratio}px`;
     const canvasHeight = `${(props.gapY + markHeight) * ratio}px`;
+    canvas.setAttribute("width", canvasWidth);
+    canvas.setAttribute("height", canvasHeight);
     const drawX = (props.gapX * ratio) / 2;
     const drawY = (props.gapY * ratio) / 2;
     const drawWidth = markWidth * ratio;
     const drawHeight = markHeight * ratio;
-    canvas.setAttribute("width", canvasWidth);
-    canvas.setAttribute("height", canvasHeight);
+    const rotateX = (drawWidth + props.gapX * ratio) / 2;
+    const rotateY = (drawHeight + props.gapY * ratio) / 2;
+    rotateWatermark(ctx, rotateX, rotateY, props.rotate);
     if (props.image) {
       const img = new Image();
-      img.onload = () => {
-        ctx.drawImage(img, drawX, drawY, drawWidth, drawHeight);
-        /** Draw interleaved pictures after rotation */
-        // ctx.restore();
-        // rotateWatermark(ctx, alternateRotateX, alternateRotateY, rotate);
-        // ctx.drawImage(img, alternateDrawX, alternateDrawY, drawWidth, drawHeight);
-        appendWatermark(canvas.toDataURL(), markWidth);
-      };
-      img.onerror = () => (img.crossOrigin = "anonymous");
-      img.setAttribute("crossOrigin", "no-referrer");
+      img.crossOrigin = "anonymous";
+      img.referrerPolicy = "no-referrer";
       img.src = props.image;
-    } else {
-      // ctx.textBaseline = "middle";
-      // ctx.textAlign = "center";
-      // 文字绕中间旋转
-      // ctx.translate(markWidth, markHeight);
-      // ctx.rotate((Math.PI / 180) * Number(props.rotate));
-      const markSize = Number(props.fontSize) * ratio;
-      ctx.font = `${props.fontStyle} normal ${props.fontWeight} ${markSize}px/${drawHeight}px ${props.fontFamily}`;
-      ctx.fillStyle = props.fontColor;
-      rotateWatermark(ctx, markWidth, markHeight, props.rotate);
-      ctx.fillText(props.content, drawX, drawY);
 
-      // ctx.restore();
-      appendWatermark(canvas.toDataURL(), markWidth);
+      img.onload = () => {
+        console.log(img);
+        ctx.drawImage(img, drawX, drawY, drawWidth, drawHeight);
+      };
+      img.onerror = () => {
+        fillTexts(ctx, drawX, drawY, drawWidth, drawHeight);
+      };
+    } else {
+      fillTexts(ctx, drawX, drawY, drawWidth, drawHeight);
     }
+    ctx.restore();
+    appendWatermark(canvas.toDataURL(), markWidth);
   }
 };
 const destroyedWatermark = () => {
