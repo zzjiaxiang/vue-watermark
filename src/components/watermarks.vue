@@ -146,17 +146,17 @@ const renderWatermark = () => {
       img.src = props.image;
 
       img.onload = () => {
-        console.log(img);
         ctx.drawImage(img, drawX, drawY, drawWidth, drawHeight);
+        appendWatermark(canvas.toDataURL(), markWidth);
       };
       img.onerror = () => {
         fillTexts(ctx, drawX, drawY, drawWidth, drawHeight);
       };
     } else {
       fillTexts(ctx, drawX, drawY, drawWidth, drawHeight);
+      appendWatermark(canvas.toDataURL(), markWidth);
     }
     ctx.restore();
-    appendWatermark(canvas.toDataURL(), markWidth);
   }
 };
 const destroyedWatermark = () => {
