@@ -1,12 +1,12 @@
 <script setup>
 import { reactive, ref } from "vue";
-import Watermarks from "../components/watermarks.vue";
+import Watermarks from "../components/watermark/watermarks.vue";
 const font = reactive({
-  // fontColor: "red",
+  fontColor: "rgba(0,0,0,.15)",
   fontSize: 16
 });
 const rotate = ref(-22);
-const content = ref("这是测试文字");
+const content = ref("This is default content");
 const gapX = ref(200);
 const gapY = ref(200);
 const text = `
@@ -22,8 +22,8 @@ const text = `
   `;
 </script>
 <template>
+  <h2>自定义配置</h2>
   <div class="content">
-    <!-- image="https://mdn.alipayobjects.com/huamei_7uahnr/afts/img/A*lkAoRbywo0oAAAAAAAAAAAAADrJ8AQ/original" -->
     <Watermarks
       :rotate="rotate"
       :content="content"
@@ -31,7 +31,7 @@ const text = `
       :fontSize="font.fontSize"
       :gapX="gapX"
       :gapY="gapY"
-      style="flex: 1"
+      style="flex: 4"
     >
       <pre style="white-space: pre-wrap">
           {{ text }}
@@ -51,6 +51,14 @@ const text = `
       <el-input-number v-model="gapY" controls-position="right" />
     </div>
   </div>
+  <h2>图片作为背景</h2>
+  <div class="content">
+    <Watermarks image="https://png.zjiaxiang.cn/blog/webps.svg" :content="content">
+      <pre style="white-space: pre-wrap">
+          {{ text }}
+      </pre>
+    </Watermarks>
+  </div>
 </template>
 <style>
 .content {
@@ -58,6 +66,7 @@ const text = `
   height: 100%;
 }
 .right {
+  flex: 1;
   border-left: 1px solid rgb(238, 238, 238);
   padding-left: 20px;
 }
