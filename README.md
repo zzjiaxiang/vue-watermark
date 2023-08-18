@@ -13,6 +13,7 @@ yarn add @zzjiaxiang/vue-watermark
 <!-- main.js -->
 import WaterMark from '@zzjiaxiang/vue-watermark'
 app.use(WaterMark)
+
 <!-- otherPage.vue -->
 <Watermarks
   content="This is default content"
@@ -40,6 +41,8 @@ app.use(WaterMark)
 | fontStyle  | 字体样式                                                    | `none` \| `normal` \| `italic` \| `oblique` | normal          |
 
 传入image属性时优先使用图片源,当图片源加载失败时显示content内容显示水印.
+
+### 开发
 
 ```
 $ git clone git@github.com:zzjiaxiang/vue-watermark.git
