@@ -1,6 +1,6 @@
 <script setup>
 import { reactive, ref } from "vue";
-import Watermarks from "../components/watermark/watermarks.vue";
+import WaterMark from "../package/components/water-mark/src/water-mark.vue";
 const font = reactive({
   fontColor: "rgba(0,0,0,.15)",
   fontSize: 16
@@ -24,7 +24,7 @@ const text = `
 <template>
   <h2>自定义配置</h2>
   <div class="content">
-    <Watermarks
+    <water-mark
       :rotate="rotate"
       :content="content"
       :fontColor="font.fontColor"
@@ -36,7 +36,7 @@ const text = `
       <pre style="white-space: pre-wrap">
           {{ text }}
       </pre>
-    </Watermarks>
+    </water-mark>
     <div class="right">
       <div>Color</div>
       <el-color-picker v-model="font.fontColor" show-alpha />
@@ -53,11 +53,11 @@ const text = `
   </div>
   <h2>图片作为背景</h2>
   <div class="content">
-    <Watermarks image="https://png.zjiaxiang.cn/blog/webps.svg" :content="content">
+    <water-mark image="https://png.zjiaxiang.cn/blog/webps.svg" :content="content">
       <pre style="white-space: pre-wrap">
           {{ text }}
       </pre>
-    </Watermarks>
+    </water-mark>
   </div>
 </template>
 <style>

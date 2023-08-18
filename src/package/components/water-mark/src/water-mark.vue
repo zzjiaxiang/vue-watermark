@@ -1,6 +1,9 @@
 <script setup>
 import { nextTick, onMounted, ref, watch } from "vue";
 import { MutateObserver, getPixelRatio, getStyleStr, reRendering, rotateWatermark } from "./utils";
+defineOptions({
+  name: "WaterMark"
+});
 const FontGap = 3;
 
 const props = defineProps({
