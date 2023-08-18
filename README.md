@@ -1,19 +1,19 @@
-### 基于ant-design [watermark](https://github.com/ant-design/ant-design/blob/master/components/watermark/index.tsx)组件的vue3版本
-
-你可以克隆本项目到本地运行查看效果,也可以[点击这里在线预览](https://vue-watermark.zjiaxiang.cn/)
-
-```
-$ git clone git@github.com:zzjiaxiang/vue-watermark.git
-$ cd vue-watermark
-$ npm install
-$ npm dev
-```
+- 基于ant-design <a href="https://github.com/ant-design/ant-design/blob/master/components/watermark/index.tsx" target="_blank">watermark</a> 组件的vue3版本
+- <a href="https://vue-watermark.zjiaxiang.cn/" target="_blank">点击这里在线预览</a>
 
 ### 使用
 
-可以直接复制src/components/watermark 文件夹到你的项目
+```
+npm i @zzjiaxiang/vue-watermark
+or
+yarn add @zzjiaxiang/vue-watermark
+```
 
 ```
+<!-- main.js -->
+import WaterMark from '@zzjiaxiang/vue-watermark'
+app.use(WaterMark)
+<!-- otherPage.vue -->
 <Watermarks
   content="This is default content"
 >
@@ -40,3 +40,10 @@ $ npm dev
 | fontStyle  | 字体样式                                                    | `none` \| `normal` \| `italic` \| `oblique` | normal          |
 
 传入image属性时优先使用图片源,当图片源加载失败时显示content内容显示水印.
+
+```
+$ git clone git@github.com:zzjiaxiang/vue-watermark.git
+$ cd vue-watermark
+$ npm install
+$ npm dev
+```
