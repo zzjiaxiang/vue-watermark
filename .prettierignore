@@ -4,6 +4,6 @@
 
 **/*.svg
 **/*.sh
-
+/lib/
 /public/*
 index.html
