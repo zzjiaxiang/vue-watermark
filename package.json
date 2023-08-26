@@ -2,26 +2,38 @@
   "name": "vue-watermark",
   "version": "0.0.1",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "build:lib": "rollup --config",
+    "lintfix": "eslint --fix ."
   },
   "dependencies": {
-    "element-plus": "^2.3.8",
+    "@zzjiaxiang/vue-watermark": "^1.0.0",
+    "element-plus": "^2.3.8"
+  },
+  "peerDependencies": {
     "vue": "^3.2.47"
   },
   "devDependencies": {
+    "@rollup/plugin-commonjs": "^25.0.4",
+    "@rollup/plugin-json": "^6.0.0",
+    "@rollup/plugin-node-resolve": "^15.1.0",
+    "@rollup/plugin-terser": "^0.4.3",
     "@vitejs/plugin-vue": "^4.2.1",
     "@vitejs/plugin-vue-jsx": "^3.0.1",
-    "eslint": "^8.46.0",
-    "eslint-config-prettier": "^8.9.0",
-    "eslint-plugin-prettier": "^5.0.0",
-    "eslint-plugin-vue": "^9.16.1",
-    "prettier": "^3.0.0",
+    "@zzjiaxiang/eslint-config": "^1.0.10",
+    "rollup": "^3.28.0",
+    "rollup-plugin-esbuild": "^5.0.0",
+    "rollup-plugin-vue": "^6.0.0",
     "unplugin-auto-import": "^0.16.6",
     "unplugin-vue-components": "^0.25.1",
     "vite": "^4.3.4",
     "vite-plugin-eslint": "^1.8.1"
+  },
+  "engines": {
+    "node": ">= 16"
   }
 }
