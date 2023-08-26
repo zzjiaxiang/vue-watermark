@@ -18,12 +18,12 @@ export default defineConfig({
     }),
   ],
   server: {
-    host: "0.0.0.0",
-    port: 8848
+    host: '0.0.0.0',
+    port: 8848,
   },
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
-    }
-  }
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
+    },
+  },
 })
