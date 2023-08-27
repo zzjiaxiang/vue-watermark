@@ -5,10 +5,12 @@ const font = reactive({
   fontColor: 'rgba(0,0,0,.15)',
   fontSize: 16,
 })
+const show = ref(false)
 const rotate = ref(-22)
 const content = ref('This is default content')
 const gapX = ref(200)
 const gapY = ref(200)
+setTimeout(() => (show.value = true), 3000)
 const text = `
   JavaScript, often abbreviated as JS, is a programming language that is one of the core technologies of the World Wide Web, alongside HTML and CSS. As of 2023, 98.7% of websites use JavaScript on the client side for webpage behavior,[10] often incorporating third-party libraries. All major web browsers have a dedicated JavaScript engine to execute the code on users' devices.
 
@@ -26,6 +28,7 @@ const text = `
   <div class="content">
     <water-mark
       :rotate="rotate"
+      :show="show"
       :content="content"
       :font-color="font.fontColor"
       :font-size="font.fontSize"

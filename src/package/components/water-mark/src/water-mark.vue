@@ -13,6 +13,10 @@ defineOptions({
 const FontGap = 3
 
 const props = defineProps({
+  show: {
+    type: Boolean,
+    default: true,
+  },
   gapX: {
     type: Number,
     default: 200,
@@ -145,6 +149,9 @@ const fillTexts = (
   appendWatermark(canvas.toDataURL(), markWidth)
 }
 const renderWatermark = () => {
+  if (!props.show) {
+    return
+  }
   const canvas = document.createElement('canvas')
   const ctx = canvas.getContext('2d')
   if (ctx) {
